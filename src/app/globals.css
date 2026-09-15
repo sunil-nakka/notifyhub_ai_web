@@ -1,0 +1,283 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   NotifyHub.ai design system
+   Original visual language for the parent brand.
+   Neutral "ink" scale + a single distinctive cobalt accent.
+   ========================================================================== */
+
+@theme {
+  /* Neutrals — cool near-black through paper white */
+  --color-ink-50: #f7f8fa;
+  --color-ink-100: #eef0f4;
+  --color-ink-200: #dfe3ea;
+  --color-ink-300: #c5ccd7;
+  --color-ink-400: #97a1b0;
+  --color-ink-500: #6a7484;
+  --color-ink-600: #4b5462;
+  --color-ink-700: #353d49;
+  --color-ink-800: #222932;
+  --color-ink-900: #141a22;
+  --color-ink-950: #0a0e14;
+
+  /* Accent — NotifyHub cobalt */
+  --color-cobalt-50: #eef3ff;
+  --color-cobalt-100: #dbe5ff;
+  --color-cobalt-200: #bccfff;
+  --color-cobalt-300: #92aeff;
+  --color-cobalt-400: #5f86fb;
+  --color-cobalt-500: #2f5bea;
+  --color-cobalt-600: #1f45cc;
+  --color-cobalt-700: #1936a3;
+  --color-cobalt-800: #182f83;
+  --color-cobalt-900: #1a2c6b;
+
+  /* Signal — reserved for data-flow lines in architecture diagrams */
+  --color-signal-100: #d5f0ef;
+  --color-signal-300: #6cc9c5;
+  --color-signal-500: #14a09c;
+  --color-signal-700: #0d6f6c;
+
+  /* Semantic status — used only inside product UI mockups */
+  --color-positive-50: #e8f5ef;
+  --color-positive-500: #157f5b;
+  --color-positive-700: #0f5f45;
+  --color-attention-50: #fdf3e3;
+  --color-attention-500: #a9660a;
+  --color-attention-700: #814d07;
+  --color-risk-50: #fcedeb;
+  --color-risk-500: #b3261e;
+  --color-risk-700: #8c1c16;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo,
+    monospace;
+
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 7px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+}
+
+@layer base {
+  :root {
+    --nh-border: var(--color-ink-200);
+    --nh-border-strong: var(--color-ink-300);
+    --nh-page: #ffffff;
+    --nh-subtle: var(--color-ink-50);
+    color-scheme: light;
+  }
+
+  * {
+    border-color: var(--nh-border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--nh-page);
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv05" 1, "cv11" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-cobalt-100);
+    color: var(--color-cobalt-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-cobalt-500);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Numeric UI inside product mockups reads as tabular */
+  .nh-num {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  /* Hairline grid used behind hero and signature sections */
+  .nh-grid-light {
+    background-image:
+      linear-gradient(to right, rgba(20, 26, 34, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(20, 26, 34, 0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .nh-grid-dark {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .nh-fade-edges {
+    mask-image: radial-gradient(ellipse 78% 68% at 50% 42%, #000 40%, transparent 100%);
+  }
+
+  .nh-fade-b {
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  }
+
+  /* Micro label used across sections and product UI */
+  .nh-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+}
+
+/* ---------- Motion ---------------------------------------------------- */
+
+@keyframes nh-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes nh-flow {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes nh-dash {
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
+@keyframes nh-pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+@keyframes nh-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.nh-anim-dash {
+  stroke-dasharray: 4 6;
+  animation: nh-dash 1.8s linear infinite;
+}
+
+.nh-anim-ring {
+  animation: nh-pulse-ring 2.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .nh-anim-dash,
+  .nh-anim-ring {
+    animation: none !important;
+  }
+}
+
+@keyframes nh-travel-y {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes nh-travel-x {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+.nh-travel-x {
+  animation: nh-travel-x 3.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nh-travel-x {
+    animation: none !important;
+    left: 50% !important;
+    opacity: 1 !important;
+  }
+}

@@ -1,0 +1,31 @@
+import type { Metadata } from "next";
+import { StubPage } from "@/components/pages/stub-page";
+
+export const metadata: Metadata = {
+  title: "Education — schools and colleges",
+  description:
+    "NotifyHub for education: school and college operating platforms built on one intelligent foundation.",
+  alternates: { canonical: "/solutions/education" },
+};
+
+export default function Page() {
+  return (
+    <StubPage
+      eyebrow="Solutions"
+      title="Education"
+      lede="Schools and colleges run different academic structures on the same operational spine: students, academics, attendance, fees, and staff."
+      note="A full education solutions page is in progress. The product pages below are complete."
+      covering={[
+        "How school and college products relate to one another",
+        "Shared academic and financial workflows",
+        "What an institution group with several campuses looks like",
+        "Where intelligence fits for principals, management, and faculty",
+      ]}
+      related={[
+        { label: "School", href: "/school", detail: "School ERP + AI. Available." },
+        { label: "College", href: "/college", detail: "College ERP + AI. Available." },
+        { label: "Platform", href: "/platform", detail: "The shared foundation." },
+      ]}
+    />
+  );
+}
