@@ -11,21 +11,51 @@ import { IconArrow } from "@/components/ui/icons";
 import { HospitalDashboard } from "@/components/product-ui/mockups";
 import { InterestForm } from "@/components/pages/forms";
 import { getProduct } from "@/lib/products";
-import { SITE } from "@/lib/constants";
+import { FaqSection } from "@/components/pages/faq";
+import { JsonLd } from "@/components/seo/json-ld";
+import { HOSPITAL_FAQ } from "@/lib/faq";
+import {
+  breadcrumbSchema,
+  faqSchema,
+  pageMetadata,
+  softwareApplicationSchema,
+  webPageSchema,
+} from "@/lib/seo";
 
 const product = getProduct("hospital");
 
-export const metadata: Metadata = {
-  title: "Hospital Management + AI — coming soon",
+export const metadata: Metadata = pageMetadata({
+  path: "/hospital",
+  title: "Hospital Management Software (HMS)",
   description:
-    "A specialized hospital operating platform designed to connect patients, admissions, departments, billing, staff, and operational intelligence. Coming soon.",
-  alternates: { canonical: "/hospital" },
-  openGraph: {
-    title: "NotifyHub Hospital — coming soon",
-    description: product.description,
-    url: `${SITE.url}/hospital`,
-  },
-};
+    "NotifyHub Hospital is a hospital management system designed around patients, admissions, departments, billing, staff and operational intelligence. Coming soon.",
+  socialTitle: "NotifyHub Hospital — Hospital management software",
+  image: "/og/hospital.png",
+});
+
+const SCHEMA = [
+  webPageSchema({
+    path: "/hospital",
+    name: "Hospital Management Software (HMS) | NotifyHub.ai",
+    description:
+      "A hospital operating platform designed to connect patients, admissions, departments, billing, staff and operational intelligence. Coming soon.",
+  }),
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Hospital", path: "/hospital" },
+  ]),
+  softwareApplicationSchema(product, {
+    alternateName: "Hospital management system",
+    featureList: [
+      "Patient records",
+      "Admissions and departments",
+      "Billing",
+      "Staff records, roles and permissions",
+      "Operational intelligence",
+    ],
+  }),
+  faqSchema(HOSPITAL_FAQ, "/hospital"),
+];
 
 const CAPABILITIES = [
   {
@@ -153,6 +183,14 @@ export default function HospitalPage() {
           </div>
         </Container>
       </Section>
+
+      <FaqSection
+        items={HOSPITAL_FAQ}
+        tone="subtle"
+        title="Hospital product questions."
+      />
+
+      <JsonLd id="hospital-jsonld" data={SCHEMA} />
     </>
   );
 }

@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import { StubPage } from "@/components/pages/stub-page";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/resources/help",
   title: "Help Center",
-  description: "Support and help resources for NotifyHub products.",
-  alternates: { canonical: "/resources/help" },
-};
+  description:
+    "Support and help resources for NotifyHub products. Until this is live, write to us and we will answer directly.",
+  // Placeholder route. Crawlable and link-following, but out of the index
+  // until it carries real content — and absent from the sitemap for the
+  // same reason. Remove `noindex` and re-add the route to src/app/sitemap.ts
+  // on the day this page is written.
+  noindex: true,
+});
 
 export default function Page() {
   return (

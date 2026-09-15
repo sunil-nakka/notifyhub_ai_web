@@ -11,20 +11,38 @@ import { IconArrow } from "@/components/ui/icons";
 import { AiArchitecture } from "@/components/architecture/platform-architecture";
 import { IntelligenceFlow } from "@/components/architecture/intelligence-flow";
 import { InsightPanel } from "@/components/product-ui/insight";
-import { SITE } from "@/lib/constants";
+import { FaqSection } from "@/components/pages/faq";
+import { JsonLd } from "@/components/seo/json-ld";
+import { AI_FAQ } from "@/lib/faq";
+import {
+  breadcrumbSchema,
+  faqSchema,
+  pageMetadata,
+  webPageSchema,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "AI Intelligence — AI built into the product architecture",
+export const metadata: Metadata = pageMetadata({
+  path: "/ai",
+  title: "AI Intelligence Inside the ERP",
   description:
-    "How NotifyHub builds AI into vertical ERP: deterministic analytics produce the signals, AI interprets them, explains what changed, and recommends what to do next.",
-  alternates: { canonical: "/ai" },
-  openGraph: {
-    title: "NotifyHub AI Intelligence",
+    "How NotifyHub builds AI into vertical ERP: deterministic analytics produce the signals, AI interprets them, explains what changed and recommends what to do next.",
+  socialTitle: "NotifyHub AI Intelligence — signals first, then reasoning",
+  image: "/og/ai.png",
+});
+
+const SCHEMA = [
+  webPageSchema({
+    path: "/ai",
+    name: "AI Intelligence Inside the ERP | NotifyHub.ai",
     description:
-      "Deterministic analytics produce the signals. AI interprets, explains, and recommends.",
-    url: `${SITE.url}/ai`,
-  },
-};
+      "Deterministic analytics produce the signals. AI interprets, explains and recommends.",
+  }),
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "AI Intelligence", path: "/ai" },
+  ]),
+  faqSchema(AI_FAQ, "/ai"),
+];
 
 const CAPABILITIES = [
   {
@@ -172,6 +190,14 @@ export default function AiPage() {
           </div>
         </Container>
       </Section>
+
+      <FaqSection
+        items={AI_FAQ}
+        tone="subtle"
+        title="How the AI layer actually behaves."
+      />
+
+      <JsonLd id="ai-jsonld" data={SCHEMA} />
     </>
   );
 }

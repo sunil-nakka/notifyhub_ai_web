@@ -11,21 +11,55 @@ import { IconArrow, IconExternal } from "@/components/ui/icons";
 import { CollegeDashboard } from "@/components/product-ui/mockups";
 import { InsightPanel } from "@/components/product-ui/insight";
 import { getProduct } from "@/lib/products";
-import { SITE } from "@/lib/constants";
+import { FaqSection } from "@/components/pages/faq";
+import { JsonLd } from "@/components/seo/json-ld";
+import { COLLEGE_FAQ } from "@/lib/faq";
+import {
+  breadcrumbSchema,
+  faqSchema,
+  pageMetadata,
+  softwareApplicationSchema,
+  webPageSchema,
+} from "@/lib/seo";
 
 const product = getProduct("college");
 
-export const metadata: Metadata = {
-  title: "College ERP + AI — college management software",
+export const metadata: Metadata = pageMetadata({
+  path: "/college",
+  title: "College ERP & College Management Software",
   description:
-    "A connected operating platform for colleges, bringing academic, student, administrative, and institutional operations into one intelligent system.",
-  alternates: { canonical: "/college" },
-  openGraph: {
-    title: "NotifyHub College — College ERP + AI",
-    description: product.description,
-    url: `${SITE.url}/college`,
-  },
-};
+    "NotifyHub College is college ERP software with AI built in — programmes, departments, students, academics, attendance, fees and institutional intelligence.",
+  socialTitle: "NotifyHub College — College ERP with AI",
+  image: "/og/college.png",
+});
+
+const SCHEMA = [
+  webPageSchema({
+    path: "/college",
+    name: "College ERP & College Management Software | NotifyHub.ai",
+    description:
+      "College ERP software with AI intelligence: programmes, departments, students, academics, attendance, fees and institutional analytics.",
+  }),
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "College", path: "/college" },
+  ]),
+  softwareApplicationSchema(product, {
+    alternateName: "College management software",
+    featureList: [
+      "Academic structure: years, departments, programmes, courses, batches, sections",
+      "Student records and enrollment",
+      "Student import from Excel or CSV",
+      "Course and section attendance",
+      "Fee structures, invoices, installments and receipts",
+      "Staff records, roles and permissions",
+      "Institutional analytics",
+      "Institution Intelligence for management",
+      "Operational Intelligence for departments and faculty",
+    ],
+  }),
+  faqSchema(COLLEGE_FAQ, "/college"),
+];
 
 const CAPABILITIES = [
   {
@@ -111,6 +145,13 @@ export default function CollegePage() {
         }
       />
 
+      <FaqSection
+        items={COLLEGE_FAQ}
+        tone="subtle"
+        title="College ERP questions, answered."
+        lede="What institutions ask when they are comparing college management software."
+      />
+
       <Section tone="dark">
         <Container>
           <div className="max-w-2xl">
@@ -133,6 +174,8 @@ export default function CollegePage() {
           </div>
         </Container>
       </Section>
+
+      <JsonLd id="college-jsonld" data={SCHEMA} />
     </>
   );
 }

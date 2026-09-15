@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/pages/page-hero";
 import { Container, Section, StatusPill } from "@/components/ui/primitives";
 import { PRODUCT_ICONS, IconExternal } from "@/components/ui/icons";
 import { PRODUCTS, STATUS_LABEL } from "@/lib/products";
 
 export const metadata: Metadata = {
-  title: "Sign in",
-  description: "Sign in to your NotifyHub product.",
-  alternates: { canonical: "/signin" },
-  robots: { index: false, follow: true },
+  ...pageMetadata({
+    path: "/signin",
+    title: "Sign in",
+    description: "Sign in to your NotifyHub product.",
+  }),
+  // Also disallowed in robots.ts. Nothing here is worth crawling or following.
+  robots: { index: false, follow: false },
 };
 
 export default function SignInPage() {

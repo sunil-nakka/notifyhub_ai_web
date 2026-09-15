@@ -11,21 +11,50 @@ import { IconArrow } from "@/components/ui/icons";
 import { RestaurantDashboard } from "@/components/product-ui/mockups";
 import { InterestForm } from "@/components/pages/forms";
 import { getProduct } from "@/lib/products";
-import { SITE } from "@/lib/constants";
+import { FaqSection } from "@/components/pages/faq";
+import { JsonLd } from "@/components/seo/json-ld";
+import { RESTAURANT_FAQ } from "@/lib/faq";
+import {
+  breadcrumbSchema,
+  faqSchema,
+  pageMetadata,
+  softwareApplicationSchema,
+  webPageSchema,
+} from "@/lib/seo";
 
 const product = getProduct("restaurant");
 
-export const metadata: Metadata = {
-  title: "Restaurant ERP + AI — coming soon",
+export const metadata: Metadata = pageMetadata({
+  path: "/restaurant",
+  title: "Restaurant Management Software",
   description:
-    "An industry-specific platform for restaurant operations, helping teams manage daily workflows and understand performance through intelligent insights. Coming soon.",
-  alternates: { canonical: "/restaurant" },
-  openGraph: {
-    title: "NotifyHub Restaurant — coming soon",
-    description: product.description,
-    url: `${SITE.url}/restaurant`,
-  },
-};
+    "NotifyHub Restaurant is an industry-specific platform for restaurant operations, with daily workflows and performance read through intelligent insights. Coming soon.",
+  socialTitle: "NotifyHub Restaurant — Restaurant management software",
+  image: "/og/restaurant.png",
+});
+
+const SCHEMA = [
+  webPageSchema({
+    path: "/restaurant",
+    name: "Restaurant Management Software | NotifyHub.ai",
+    description:
+      "An industry-specific platform for restaurant operations, with performance read through intelligent insights. Coming soon.",
+  }),
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Restaurant", path: "/restaurant" },
+  ]),
+  softwareApplicationSchema(product, {
+    alternateName: "Restaurant operations software",
+    featureList: [
+      "Daily restaurant operations",
+      "Staff records, roles and permissions",
+      "Performance insights",
+      "Operational intelligence",
+    ],
+  }),
+  faqSchema(RESTAURANT_FAQ, "/restaurant"),
+];
 
 const CAPABILITIES = [
   {
@@ -123,6 +152,14 @@ export default function RestaurantPage() {
           </div>
         </Container>
       </Section>
+
+      <FaqSection
+        items={RESTAURANT_FAQ}
+        tone="subtle"
+        title="Restaurant product questions."
+      />
+
+      <JsonLd id="restaurant-jsonld" data={SCHEMA} />
     </>
   );
 }

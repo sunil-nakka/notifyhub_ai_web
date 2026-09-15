@@ -10,20 +10,38 @@ import {
 import { IconArrow } from "@/components/ui/icons";
 import { PlatformArchitecture } from "@/components/architecture/platform-architecture";
 import { IntelligenceFlow } from "@/components/architecture/intelligence-flow";
-import { SITE } from "@/lib/constants";
+import { FaqSection } from "@/components/pages/faq";
+import { JsonLd } from "@/components/seo/json-ld";
+import { PLATFORM_FAQ } from "@/lib/faq";
+import {
+  breadcrumbSchema,
+  faqSchema,
+  pageMetadata,
+  webPageSchema,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Platform — one foundation for specialized business software",
+export const metadata: Metadata = pageMetadata({
+  path: "/platform",
+  title: "Multi-Tenant ERP Platform Architecture",
   description:
-    "One technology platform powering NotifyHub's vertical ERP products: identity, organizations, permissions, multi-tenant architecture, workflow, data, analytics, and AI intelligence.",
-  alternates: { canonical: "/platform" },
-  openGraph: {
-    title: "NotifyHub Platform",
+    "One platform behind every NotifyHub product: identity, organizations, permissions, multi-tenant architecture, workflow, data, analytics and AI intelligence.",
+  socialTitle: "NotifyHub Platform — one foundation, four industries",
+  image: "/og/platform.png",
+});
+
+const SCHEMA = [
+  webPageSchema({
+    path: "/platform",
+    name: "Multi-Tenant ERP Platform Architecture | NotifyHub.ai",
     description:
-      "One technology platform powering NotifyHub's vertical ERP products, with AI intelligence built into the foundation.",
-    url: `${SITE.url}/platform`,
-  },
-};
+      "The shared technology platform behind NotifyHub's vertical ERP products, with AI intelligence built into the foundation.",
+  }),
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Platform", path: "/platform" },
+  ]),
+  faqSchema(PLATFORM_FAQ, "/platform"),
+];
 
 const CAPABILITIES = [
   {
@@ -162,6 +180,14 @@ export default function PlatformPage() {
           </div>
         </Container>
       </Section>
+
+      <FaqSection
+        items={PLATFORM_FAQ}
+        tone="subtle"
+        title="How the platform is put together."
+      />
+
+      <JsonLd id="platform-jsonld" data={SCHEMA} />
     </>
   );
 }

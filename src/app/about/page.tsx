@@ -9,14 +9,29 @@ import {
 import { IconArrow } from "@/components/ui/icons";
 import { PlatformArchitecture } from "@/components/architecture/platform-architecture";
 import { SITE } from "@/lib/constants";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema, pageMetadata, webPageSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About",
+export const metadata: Metadata = pageMetadata({
+  path: "/about",
+  title: "About NotifyHub",
   description:
-    "NotifyHub builds specialized software for real-world operations, combining vertical ERP systems with AI-native intelligence.",
-  alternates: { canonical: "/about" },
-  openGraph: { title: "About NotifyHub", url: `${SITE.url}/about` },
-};
+    "NotifyHub builds industry-specific ERP software with AI-native intelligence — School and College available today, Hospital and Restaurant coming next.",
+  socialTitle: "About NotifyHub.ai",
+});
+
+const SCHEMA = [
+  webPageSchema({
+    path: "/about",
+    name: "About NotifyHub.ai",
+    description:
+      "NotifyHub builds vertical ERP products on one shared technology platform, with intelligence built into the product architecture.",
+  }),
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+  ]),
+];
 
 export default function AboutPage() {
   return (
@@ -96,6 +111,8 @@ export default function AboutPage() {
           </div>
         </Container>
       </Section>
+
+      <JsonLd id="about-jsonld" data={SCHEMA} />
     </>
   );
 }

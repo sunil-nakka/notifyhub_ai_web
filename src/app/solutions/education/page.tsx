@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
 import { StubPage } from "@/components/pages/stub-page";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/solutions/education",
   title: "Education — schools and colleges",
   description:
-    "NotifyHub for education: school and college operating platforms built on one intelligent foundation.",
-  alternates: { canonical: "/solutions/education" },
-};
+    "NotifyHub for education: school and college operating platforms built on one intelligent foundation, sharing academic and financial workflows.",
+  // Placeholder route. Crawlable and link-following, but out of the index
+  // until it carries real content — and absent from the sitemap for the
+  // same reason. Remove `noindex` and re-add the route to src/app/sitemap.ts
+  // on the day this page is written.
+  noindex: true,
+});
 
 export default function Page() {
   return (

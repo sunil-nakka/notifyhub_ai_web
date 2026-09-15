@@ -2,13 +2,29 @@ import type { Metadata } from "next";
 import { PageHero, FeatureGrid } from "@/components/pages/page-hero";
 import { Card, Container, Section, SectionHeading } from "@/components/ui/primitives";
 import { SITE } from "@/lib/constants";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema, pageMetadata, webPageSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Security",
+export const metadata: Metadata = pageMetadata({
+  path: "/legal/security",
+  title: "Security & Data Protection",
   description:
-    "How NotifyHub approaches access control, authentication, tenant isolation, auditability, data protection, reliability, and responsible AI architecture.",
-  alternates: { canonical: "/legal/security" },
-};
+    "How NotifyHub approaches access control, authentication, tenant isolation, auditability, data protection, reliability and responsible AI architecture.",
+  socialTitle: "Security at NotifyHub.ai",
+});
+
+const SCHEMA = [
+  webPageSchema({
+    path: "/legal/security",
+    name: "Security & Data Protection | NotifyHub.ai",
+    description:
+      "Access control, authentication, tenant isolation, auditability, data protection, reliability and responsible AI architecture.",
+  }),
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Security", path: "/legal/security" },
+  ]),
+];
 
 const PRACTICES = [
   {
@@ -92,6 +108,8 @@ export default function SecurityPage() {
           </Card>
         </Container>
       </Section>
+
+      <JsonLd id="security-jsonld" data={SCHEMA} />
     </>
   );
 }

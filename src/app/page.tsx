@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Hero } from "@/components/home/hero";
 import { VerticalsIntro, ProductCards } from "@/components/home/verticals";
 import { CoreIdea } from "@/components/home/core-idea";
@@ -15,26 +14,21 @@ import {
   CustomerStories,
   FinalCta,
 } from "@/components/home/trust";
-import { SITE } from "@/lib/constants";
+import { FaqSection } from "@/components/pages/faq";
+import { JsonLd } from "@/components/seo/json-ld";
+import { HOME_FAQ } from "@/lib/faq";
+import { faqSchema, pageMetadata, webPageSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "NotifyHub.ai — AI-Powered ERP & Business Software",
-  description: SITE.descriptor,
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "NotifyHub.ai — AI-Powered ERP & Business Software",
-    description: SITE.descriptor,
-    url: SITE.url,
-  },
-};
-
-const websiteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: SITE.brand,
-  url: SITE.url,
-  description: SITE.descriptor,
-};
+export const metadata: Metadata = pageMetadata({
+  path: "/",
+  // Stated in full: the layout title template does not apply to the root
+  // page's own title, and a new domain needs the brand in its SERP title.
+  title: "School ERP & College ERP Software with AI | NotifyHub.ai",
+  description:
+    "AI-powered school ERP and college ERP software for institutions in India. Run admissions, academics, attendance, fees and staff — with intelligence built in.",
+  socialTitle: "NotifyHub.ai — School & College ERP Software with AI",
+  image: "/og/default.png",
+});
 
 export default function HomePage() {
   return (
@@ -53,12 +47,23 @@ export default function HomePage() {
       <CustomerValue />
       <FutureVerticals />
       <CustomerStories />
+      <FaqSection
+        items={HOME_FAQ}
+        title="What NotifyHub is, in plain terms."
+        lede="The questions institutions ask before they get in touch."
+      />
       <FinalCta />
-      <Script
-        id="website-jsonld"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      <JsonLd
+        id="home-jsonld"
+        data={[
+          webPageSchema({
+            path: "/",
+            name: "NotifyHub.ai — School & College ERP Software with AI",
+            description:
+              "AI-powered school ERP and college ERP software for institutions in India.",
+          }),
+          faqSchema(HOME_FAQ, "/"),
+        ]}
       />
     </>
   );

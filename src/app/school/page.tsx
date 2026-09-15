@@ -12,21 +12,55 @@ import { SchoolDashboard } from "@/components/product-ui/mockups";
 import { InsightPanel } from "@/components/product-ui/insight";
 import { FeatureGrid } from "@/components/pages/page-hero";
 import { getProduct } from "@/lib/products";
-import { SITE } from "@/lib/constants";
+import { FaqSection } from "@/components/pages/faq";
+import { JsonLd } from "@/components/seo/json-ld";
+import { SCHOOL_FAQ } from "@/lib/faq";
+import {
+  breadcrumbSchema,
+  faqSchema,
+  pageMetadata,
+  softwareApplicationSchema,
+  webPageSchema,
+} from "@/lib/seo";
 
 const product = getProduct("school");
 
-export const metadata: Metadata = {
-  title: "School ERP + AI — school management software",
+export const metadata: Metadata = pageMetadata({
+  path: "/school",
+  title: "School Management Software & School ERP",
   description:
-    "A complete operating platform for schools, with intelligent insights across students, academics, attendance, fees, staff, and institutional operations.",
-  alternates: { canonical: "/school" },
-  openGraph: {
-    title: "NotifyHub School — School ERP + AI",
-    description: product.description,
-    url: `${SITE.url}/school`,
-  },
-};
+    "NotifyHub School is school management software with AI built in — admissions, academics, attendance, fees, staff and institutional analytics in one school ERP.",
+  socialTitle: "NotifyHub School — School management software with AI",
+  image: "/og/school.png",
+});
+
+const SCHEMA = [
+  webPageSchema({
+    path: "/school",
+    name: "School Management Software & School ERP | NotifyHub.ai",
+    description:
+      "School management software with AI intelligence: admissions, academics, attendance, fees, staff and institutional analytics.",
+  }),
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "School", path: "/school" },
+  ]),
+  softwareApplicationSchema(product, {
+    alternateName: "School management software",
+    featureList: [
+      "Admissions and enquiry management",
+      "Student records and academics",
+      "Attendance capture and trends",
+      "Fee structures, invoices, installments and receipts",
+      "Staff records, roles and permissions",
+      "Institutional analytics",
+      "Institution Intelligence for management",
+      "My Class / My Students for teachers",
+      "Fee Collection Intelligence",
+    ],
+  }),
+  faqSchema(SCHOOL_FAQ, "/school"),
+];
 
 const OPERATIONS = [
   {
@@ -156,6 +190,13 @@ export default function SchoolPage() {
         </Container>
       </Section>
 
+      <FaqSection
+        items={SCHOOL_FAQ}
+        tone="subtle"
+        title="School ERP questions, answered."
+        lede="What institutions ask when they are comparing school management software."
+      />
+
       <Section tone="dark">
         <Container>
           <div className="max-w-2xl">
@@ -179,6 +220,8 @@ export default function SchoolPage() {
           </div>
         </Container>
       </Section>
+
+      <JsonLd id="school-jsonld" data={SCHEMA} />
     </>
   );
 }
