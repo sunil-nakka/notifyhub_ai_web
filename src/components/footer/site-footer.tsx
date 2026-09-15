@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FOOTER_NAV } from "@/lib/navigation";
 import { SITE } from "@/lib/constants";
-import { LogoMark } from "@/components/ui/logo";
+import { LogoMark, Wordmark } from "@/components/ui/logo";
 import { Container } from "@/components/ui/primitives";
 
 export function SiteFooter() {
@@ -11,10 +11,8 @@ export function SiteFooter() {
         <div className="grid gap-12 py-16 grid-cols-1 lg:grid-cols-[minmax(0,260px)_minmax(0,1fr)] lg:gap-16">
           <div>
             <div className="flex items-center gap-2.5">
-              <LogoMark />
-              <span className="text-[15px] font-semibold tracking-[-0.02em] text-white">
-                NotifyHub<span className="text-ink-500">.ai</span>
-              </span>
+              <LogoMark tone="dark" />
+              <Wordmark tone="dark" />
             </div>
             <p className="mt-4 max-w-[240px] text-[13.5px] leading-relaxed text-ink-400">
               {SITE.tagline}.

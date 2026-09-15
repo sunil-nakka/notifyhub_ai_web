@@ -32,6 +32,10 @@
   --color-cobalt-800: #182f83;
   --color-cobalt-900: #1a2c6b;
 
+  /* Brand — the NotifyHub mark and wordmark only, never UI chrome */
+  --color-brand-navy: #143359;
+  --color-brand-green: #80c43d;
+
   /* Signal — reserved for data-flow lines in architecture diagrams */
   --color-signal-100: #d5f0ef;
   --color-signal-300: #6cc9c5;
